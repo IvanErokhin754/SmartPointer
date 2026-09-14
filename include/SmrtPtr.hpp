@@ -20,6 +20,13 @@ struct Storage {
     void (*deleter)(void*);
 };
 
+class SmrtPtrStorage {
+protected:
+    static inline size_t global_storage_next_id = 0;
+
+    static inline MutableArraySequence<Storage> global_storage;    
+};
+
 template<typename U>
 void DeleteSingle(void *ptr) {
     delete static_cast<U*>(ptr);
@@ -30,12 +37,8 @@ void DeleteArray(void *ptr) {
     delete[] static_cast<U*>(ptr);
 }
 
-inline size_t global_storage_next_id = 0;
-
-inline MutableArraySequence<Storage> global_storage;
-
 template<typename T>
-class SmrtPtr {
+class SmrtPtr : private SmrtPtrStorage {
 private:
     T *ptr;
     size_t id;
@@ -85,7 +88,7 @@ public:
 
     template<typename U>
     requires std::is_convertible_v<U*, T*>
-    SmrtPtr(SmrtPtr<U>&& other) : ptr(other.ptr), id(other.id) {
+    SmrtPtr(SmrtPtr<U>&& other) noexcept : ptr(other.ptr), id(other.id) {
         other.ptr = nullptr;
     }
 

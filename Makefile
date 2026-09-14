@@ -1,14 +1,16 @@
 CXX = clang++
-CXXFLAGS = -std=c++20 -Wall -Wextra -Iinclude -g -O0
+CXXFLAGS = -std=c++20 -Wall -Wextra -Iinclude -O2
 SANITIZE_FLAGS = -fsanitize=address -g
 
 SRC = src/main.cpp #src/UI.cpp
 APP = main
 
 
-TEST_SRC = tests/test_subtyping.cpp \
-		   tests/test_SmrtPtr_array.cpp \
-		   tests/test_SmrtPtr_single.cpp
+TEST_SRC = tests/load_test.cpp \
+		   #tests/test_subtyping.cpp \
+		   #tests/test_SmrtPtr_array.cpp \
+		   #tests/test_SmrtPtr_single.cpp \
+		   
 	
 
 TEST_BIN = tests_run
