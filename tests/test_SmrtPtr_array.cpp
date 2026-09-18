@@ -45,13 +45,11 @@ TEST(SmrtPtrArray, ArrayOutOfRange) {
 
 TEST(SmrtPtrArray, ArrayOperatorOnSingleThrows) {
     SmrtPtr<int> ptr(new int(10));
-
     EXPECT_THROW(ptr[0], std::logic_error);
 }
 
 TEST(SmrtPtrArray, DereferenceArrayThrows) {
     SmrtPtr<int> ptr(new int[5], 5);
-
     EXPECT_THROW(*ptr, std::logic_error);
 }
 

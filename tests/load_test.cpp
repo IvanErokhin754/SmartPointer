@@ -3,21 +3,6 @@
 #include <vector>
 #include "SmrtPtr.hpp"
 #include <memory>
-/*
-
-auto start = std::chrono::high_resolution_clock::now();
-
-
-auto end = std::chrono::high_resolution_clock::now();
-
-
-auto time = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-
-
-std::cout << time << "ms\n";
-
-*/
-
 
 void TestCreate(size_t n) {
     std::cout << "TEST CREATE (num of elemets - " << n << ")\n";
@@ -235,22 +220,55 @@ void TestMoveConstructor(size_t n) {
     std::cout << "SharedPtr: " << time << " us\n";
 }
 
+void TestRawMemory(size_t n) {
+
+    std::vector<int*> ptrs;
+    ptrs.reserve(n);
+
+    for (size_t i = 0; i < n; i++) {
+        ptrs.push_back(new int(5));
+    }
+
+
+    for (auto ptr : ptrs) {
+        delete ptr;
+    }
+}
+
+void TestSmrtPtrMemory(size_t n) {
+    std::vector<SmrtPtr<int>> ptrs;
+    ptrs.reserve(n);
+
+    for (size_t i = 0; i < n; i++) {
+        ptrs.emplace_back(new int(5));
+    }
+}
+
+void TestSharedPtrMemory(size_t n) {
+    std::vector<std::shared_ptr<int>> ptrs;
+    ptrs.reserve(n);
+
+    for (size_t i = 0; i < n; i++) {
+        ptrs.emplace_back(new int(5));
+    }
+}
+
 int main() 
 {
-    // TestCreate(1000);
-    // TestCreate(10'000);
-    // TestCreate(100'000);
-    // TestCreate(1'000'000);
+    //  TestCreate(1000);
+    //  TestCreate(10'000);
+    //  TestCreate(100'000);
+    //  TestCreate(1'000'000);
     
     // TestCopyConstructor(1000);
     // TestCopyConstructor(10'000);
     // TestCopyConstructor(100'000);
     // TestCopyConstructor(1'000'000);
 
-    // TestCopyAssignment(1000);
-    // TestCopyAssignment(10'000);
-    // TestCopyAssignment(100'000);
-    // TestCopyAssignment(1'000'000);
+    TestCopyAssignment(1000);
+    TestCopyAssignment(10'000);
+    TestCopyAssignment(100'000);
+    TestCopyAssignment(1'000'000);
 
     // TestMoveConstructor(1000);
     // TestMoveConstructor(10'000);
@@ -261,6 +279,24 @@ int main()
     // TestMoveAssignment(10'000);
     // TestMoveAssignment(100'000);
     // TestMoveAssignment(1'000'000);
+
+
+    
+    //TestRawMemory(1000);
+    //TestSmrtPtrMemory(1000);
+    //TestSharedPtrMemory(1000);
+
+    //TestRawMemory(10'000);
+    //TestSmrtPtrMemory(10'000);
+    //TestSharedPtrMemory(10'000);
+
+    //TestRawMemory(100'000);
+    //TestSmrtPtrMemory(100'000);
+    //TestSharedPtrMemory(100'000);
+
+    // TestRawMemory(1'000'000);
+    // TestSmrtPtrMemory(1'000'000);
+    // TestSharedPtrMemory(1'000'000);
 
 
 
