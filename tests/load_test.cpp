@@ -151,8 +151,8 @@ void TestMoveAssignment(size_t n) {
 
     std::cout << "SmrtPtr: " << time << " us\n";
 
-    std::vector<SmrtPtr<int>> sources_sh;
-    std::vector<SmrtPtr<int>> targets_sh;
+    std::vector<std::shared_ptr<int>> sources_sh;
+    std::vector<std::shared_ptr<int>> targets_sh;
 
     sources_sh.reserve(n);
     targets_sh.reserve(n);
